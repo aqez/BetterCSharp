@@ -7,5 +7,4 @@ namespace Vehicles
         public int SeatCount { get; set; }
         public int Weight { get; set; }
     }
-
 }

@@ -4,5 +4,4 @@ namespace Vehicles
     {
         public override decimal CostMultiplier => 1.0m;
     }
-
 }
