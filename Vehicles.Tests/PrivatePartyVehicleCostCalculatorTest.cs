@@ -1,13 +1,6 @@
-using Xunit;
-
 namespace Vehicles.Tests
 {
-    public class PrivatePartyVehicleCostCalulatorTest
+    public class PrivatePartyVehicleCostCalculatorTest
     {
-        [Fact]
-        public void Test1()
-        {
-
-        }
     }
 }

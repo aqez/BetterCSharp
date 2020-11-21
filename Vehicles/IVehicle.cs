@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace Vehicles
 {
     public interface IVehicle
@@ -7,5 +9,4 @@ namespace Vehicles
         int SeatCount { get; set; }
         int Weight { get; set; }
     }
-
 }
