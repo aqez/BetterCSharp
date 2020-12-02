@@ -39,7 +39,6 @@ namespace Vehicles.Transfer.Console
                                 {
                                     semaphore.Release();
                                 }
-                                semaphore.Release();
                             }));
                         }
                         await Task.WhenAll(tasks);

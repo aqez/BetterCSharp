@@ -17,6 +17,7 @@ namespace Vehicles.Transfer.Console
 
         public override async Task ProcessAsync()
         {
+
             var settings = new ExecutionDataflowBlockOptions()
             {
                 MaxDegreeOfParallelism = 10,
@@ -27,9 +28,10 @@ namespace Vehicles.Transfer.Console
             var transformBlock = new TransformBlock<IVehicle, Truck>(TransformAsync, settings);
             var doubleBlock = new TransformBlock<Truck, Truck>(DoubleDoorsAsync, settings);
             var batchBlock = new BatchBlock<Truck>(10);
-            var saveBlock = new ActionBlock<IEnumerable<Truck>>(async input => await SaveTrucksAsync(input), settings);
+            var saveBlock = new ActionBlock<IEnumerable<Truck>>(SaveTrucksAsync, settings);
 
             DataflowLinkOptions linkOptions = new DataflowLinkOptions() { PropagateCompletion = true };
+
             listFilesBlock.LinkTo(getVehiclesBlock, linkOptions);
             getVehiclesBlock.LinkTo(transformBlock, linkOptions);
             transformBlock.LinkTo(doubleBlock, linkOptions);
@@ -42,6 +44,25 @@ namespace Vehicles.Transfer.Console
             await saveBlock.Completion;
         }
 
+        private async Task SaveTrucksAsync(IEnumerable<Truck> trucks)
+        {
+            System.Console.WriteLine($"Saving {trucks.Count()} trucks");
+            await Task.Delay(500);
+
+            lock (this)
+            {
+                using (Stream stream = _fileSystem.GetFileStream(_outputFile, FileMode.OpenOrCreate))
+                using (StreamWriter writer = new StreamWriter(stream))
+                {
+                    stream.Seek(0, SeekOrigin.End);
+                    foreach (var truck in trucks)
+                    {
+                        writer.WriteLine(JsonConvert.SerializeObject(truck));
+                    }
+                }
+            }
+        }
+
         private IEnumerable<IVehicle> GetVehicles(string fileName)
         {
 
@@ -51,25 +72,6 @@ namespace Vehicles.Transfer.Console
                 foreach (var vehicle in repository.GetVehicles())
                 {
                     yield return vehicle;
-                }
-            }
-        }
-
-        private async Task SaveTrucksAsync(IEnumerable<Truck> trucks)
-        {
-            System.Console.WriteLine($"Saving {trucks.Count()} trucks...");
-            await Task.Delay(500);
-            lock (this)
-            {
-                using (Stream stream = _fileSystem.GetFileStream(_outputFile, FileMode.OpenOrCreate))
-                using (StreamWriter writer = new StreamWriter(stream))
-                {
-                    stream.Seek(0, SeekOrigin.End);
-
-                    foreach (var truck in trucks)
-                    {
-                        writer.WriteLine(JsonConvert.SerializeObject(truck));
-                    }
                 }
             }
         }

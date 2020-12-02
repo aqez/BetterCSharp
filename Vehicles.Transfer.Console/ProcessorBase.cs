@@ -23,8 +23,6 @@ namespace Vehicles.Transfer.Console
 
         public abstract Task ProcessAsync();
 
-
-
         protected async Task SaveTruckAsync(Truck truck)
         {
             System.Console.WriteLine($"Saving truck");
