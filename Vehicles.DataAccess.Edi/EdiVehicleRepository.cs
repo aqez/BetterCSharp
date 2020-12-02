@@ -4,14 +4,14 @@ using System.IO;
 
 namespace Vehicles.DataAccess.Edi
 {
-    public class EdiVehicleRepository : IVehicleRepository, IDisposable
+    public class EdiVehicleRepository : IVehicleRepository
     {
         private readonly Stream _stream;
         private readonly StreamReader _reader;
 
-        public EdiVehicleRepository(string filename)
+        public EdiVehicleRepository(Stream stream)
         {
-            _stream = new FileStream(filename, FileMode.Open);
+            _stream = stream;
             _reader = new StreamReader(_stream);
         }
 

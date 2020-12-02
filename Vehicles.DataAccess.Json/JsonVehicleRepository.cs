@@ -4,18 +4,25 @@ using Newtonsoft.Json;
 
 namespace Vehicles.DataAccess.Json
 {
-    public class JsonVehicleProvider : IVehicleRepository
+    public class JsonVehicleRepository : IVehicleRepository
     {
-        private readonly string _fileName;
+        private readonly Stream _stream;
+        private readonly StreamReader _reader;
 
-        public JsonVehicleProvider(string fileName)
+        public JsonVehicleRepository(Stream stream)
         {
-            _fileName = fileName;
+            _stream = stream;
+            _reader = new StreamReader(stream);
+        }
+
+        public void Dispose()
+        {
+            _stream.Dispose();
         }
 
         public IEnumerable<IVehicle> GetVehicles()
         {
-            string text = File.ReadAllText(_fileName);
+            string text = _reader.ReadToEnd();
 
             var settings = new JsonSerializerSettings() { TypeNameHandling = TypeNameHandling.All };
             return JsonConvert.DeserializeObject<IVehicle[]>(text, settings);

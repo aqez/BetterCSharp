@@ -1,0 +1,20 @@
+[
+    {
+        "$type" : "Vehicles.Car, Vehicles",
+        "DoorCount": 4,
+        "SeatCount": 4,
+        "Weight": 2000
+    },
+    {
+        "$type" : "Vehicles.Truck, Vehicles",
+        "DoorCount": 2,
+        "SeatCount": 2,
+        "Weight": 4000
+    },
+    {
+        "$type" : "Vehicles.Car, Vehicles",
+        "DoorCount": 2,
+        "SeatCount": 3,
+        "Weight": 2000
+    }
+]

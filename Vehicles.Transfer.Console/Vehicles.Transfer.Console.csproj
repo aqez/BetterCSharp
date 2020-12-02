@@ -5,4 +5,10 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+    <ItemGroup>
+        <ProjectReference Include="../Vehicles.DataAccess.Edi/Vehicles.DataAccess.Edi.csproj" />
+        <ProjectReference Include="../Vehicles.DataAccess.Json/Vehicles.DataAccess.Json.csproj" />
+        <ProjectReference Include="../Vehicles.DataAccess/Vehicles.DataAccess.csproj" />
+        <ProjectReference Include="../Vehicles/Vehicles.csproj" />
+    </ItemGroup>
 </Project>

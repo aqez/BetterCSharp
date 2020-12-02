@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Vehicles.DataAccess
 {
-    public interface IVehicleRepository
+    public interface IVehicleRepository : IDisposable
     {
         IEnumerable<IVehicle> GetVehicles();
     }
