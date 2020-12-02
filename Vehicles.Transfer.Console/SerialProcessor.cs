@@ -16,14 +16,14 @@ namespace Vehicles.Transfer.Console
             foreach (string fileName in _fileSystem.GetFileNames(_directory))
             {
                 System.Console.WriteLine($"Processing {fileName}...");
-                using (IVehicleRepository inputRepository = GetVehicleRepository(fileName))
+                using (IVehicleProvider inputRepository = GetVehicleProvider(fileName))
                 {
                     foreach (IVehicle vehicle in inputRepository.GetVehicles())
                     {
                         Truck truck = await TransformAsync(vehicle);
                         truck = await DoubleDoorsAsync(truck);
 
-                        await SaveTruckAsync( truck);
+                        await SaveTruckAsync(truck);
                     }
                 }
             }

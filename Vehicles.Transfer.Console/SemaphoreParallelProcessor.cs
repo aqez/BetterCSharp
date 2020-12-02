@@ -20,7 +20,7 @@ namespace Vehicles.Transfer.Console
                 foreach (string fileName in _fileSystem.GetFileNames(_directory))
                 {
                     System.Console.WriteLine($"Processing {fileName}...");
-                    using (IVehicleRepository inputRepository = GetVehicleRepository(fileName))
+                    using (IVehicleProvider inputRepository = GetVehicleProvider(fileName))
                     {
                         List<Task> tasks = new List<Task>();
                         foreach (IVehicle vehicle in inputRepository.GetVehicles())

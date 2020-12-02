@@ -4,12 +4,12 @@ using System.IO;
 
 namespace Vehicles.DataAccess.Edi
 {
-    public class EdiVehicleRepository : IVehicleRepository
+    public class EdiVehicleProvider : IVehicleProvider
     {
         private readonly Stream _stream;
         private readonly StreamReader _reader;
 
-        public EdiVehicleRepository(Stream stream)
+        public EdiVehicleProvider(Stream stream)
         {
             _stream = stream;
             _reader = new StreamReader(_stream);

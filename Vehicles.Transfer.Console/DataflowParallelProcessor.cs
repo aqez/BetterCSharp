@@ -46,7 +46,7 @@ namespace Vehicles.Transfer.Console
         {
 
             System.Console.WriteLine($"Processing {fileName}...");
-            using (IVehicleRepository repository = GetVehicleRepository(fileName))
+            using (IVehicleProvider repository = GetVehicleProvider(fileName))
             {
                 foreach (var vehicle in repository.GetVehicles())
                 {

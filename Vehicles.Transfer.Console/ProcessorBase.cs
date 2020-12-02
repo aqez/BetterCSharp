@@ -44,7 +44,7 @@ namespace Vehicles.Transfer.Console
         protected async Task<Truck> TransformAsync(IVehicle vehicle)
         {
             System.Console.WriteLine($"Transforming {vehicle.GetType().Name} into {nameof(Truck)}");
-            await Task.Delay(vehicle.Weight * 2);
+            await Task.Delay(200);
             return new Truck()
             {
                 DoorCount = vehicle.DoorCount,
@@ -65,19 +65,19 @@ namespace Vehicles.Transfer.Console
             };
         }
 
-        protected IVehicleRepository GetVehicleRepository(string fileName)
+        protected IVehicleProvider GetVehicleProvider(string fileName)
         {
             Stream stream = _fileSystem.GetFileStream(fileName, FileMode.Open);
 
             if (fileName.EndsWith(".edi"))
             {
-                System.Console.WriteLine($"\tGot {nameof(EdiVehicleRepository)}");
-                return new EdiVehicleRepository(stream);
+                System.Console.WriteLine($"\tGot {nameof(EdiVehicleProvider)}");
+                return new EdiVehicleProvider(stream);
             }
             else if (fileName.EndsWith(".json"))
             {
-                System.Console.WriteLine($"\tGot {nameof(JsonVehicleRepository)}");
-                return new JsonVehicleRepository(stream);
+                System.Console.WriteLine($"\tGot {nameof(JsonVehicleProvider)}");
+                return new JsonVehicleProvider(stream);
             }
 
             throw new NotSupportedException($"File type not supported: {fileName}");

@@ -4,12 +4,12 @@ using Newtonsoft.Json;
 
 namespace Vehicles.DataAccess.Json
 {
-    public class JsonVehicleRepository : IVehicleRepository
+    public class JsonVehicleProvider : IVehicleProvider
     {
         private readonly Stream _stream;
         private readonly StreamReader _reader;
 
-        public JsonVehicleRepository(Stream stream)
+        public JsonVehicleProvider(Stream stream)
         {
             _stream = stream;
             _reader = new StreamReader(stream);

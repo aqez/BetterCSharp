@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Vehicles.DataAccess
 {
-    public interface IVehicleRepository : IDisposable
+    public interface IVehicleProvider : IDisposable
     {
         IEnumerable<IVehicle> GetVehicles();
     }

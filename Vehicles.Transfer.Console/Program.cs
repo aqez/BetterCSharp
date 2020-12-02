@@ -7,7 +7,8 @@ namespace Vehicles.Transfer.Console
     {
         static async Task Main(string[] args)
         {
-            IProcessor processor = new DataflowParallelProcessor("input", "testyo.json", new FileSystem());
+            IFileSystem fileSystem = new FileSystem();
+            IProcessor processor = new DataflowParallelProcessor(directory: "input", outputFile: "testyo.json", fileSystem);
 
             await processor.ProcessAsync();
         }
