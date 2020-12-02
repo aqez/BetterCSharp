@@ -12,7 +12,6 @@ namespace Vehicles.Tests
             _calculator = new PrivatePartyVehicleCostCalculator();
         }
 
-
         [Fact]
         public void CalculateCost_WithTank_GivesBackCorrectCost()
         {

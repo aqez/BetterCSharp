@@ -1,11 +1,15 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
-  <PropertyGroup>
-    <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
-  </PropertyGroup>
-  <ItemGroup>
-      <ProjectReference Include="../Vehicles/Vehicles.csproj"/>
-  </ItemGroup>
-
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+    </PropertyGroup>
+    <ItemGroup>
+        <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="../Vehicles/Vehicles.csproj" />
+        <ProjectReference Include="../Vehicles.DataAccess/Vehicles.DataAccess.csproj" />
+        <ProjectReference Include="../Vehicles.DataAccess.Edi/Vehicles.DataAccess.Edi.csproj" />
+        <ProjectReference Include="../Vehicles.DataAccess.Json/Vehicles.DataAccess.Json.csproj" />
+    </ItemGroup>
 </Project>

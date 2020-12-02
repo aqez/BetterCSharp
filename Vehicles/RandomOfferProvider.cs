@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace Vehicles
 {
@@ -17,7 +19,22 @@ namespace Vehicles
 
         public decimal GetOffer()
         {
-            return (decimal)_random.Next(_minimum, _maximum);
+            decimal offer = _random.Next(_minimum, _maximum * 2);
+            return offer;
+        }
+
+        public IEnumerator<decimal> GetEnumerator()
+        {
+            for (var i = 0; i < 10; i++)
+            {
+                yield return GetOffer();
+            }
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
         }
     }
+
 }

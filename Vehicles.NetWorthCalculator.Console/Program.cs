@@ -1,32 +1,23 @@
-﻿namespace Vehicles.NetWorthCalculator.Console
+﻿
+using System.Collections.Generic;
+using System.Linq;
+
+namespace Vehicles.NetWorthCalculator.Console
 {
     class Program
     {
         static void Main(string[] args)
         {
-            // 1. Get some collection of cars
-            // 2. Get some offer on each of the cars
-            // 3. Use a calculator to determine which ones to sell
+            RandomOfferProvider offerProvider = new RandomOfferProvider(minimum: 1000, maximum: 30000);
 
-            IVehicle[] vehicles = new IVehicle[]
-            {
-                 new Car(),
-                 new Truck(),
-                 new SUV()
-            };
 
-            IVehicleProvider vehicleProvider = new ArrayVehicleProvider(vehicles);
-            IOfferProvider offerProvider = new RandomOfferProvider(minimum: 1000, maximum: 30000);
-            IVehicleCostCalculator costCalculator = new PrivatePartyVehicleCostCalculator();
-            IVehicleSeller vehicleSeller = new MarginVehicleSeller(costCalculator, margin: .10m);
+            decimal max = offerProvider.Max();
 
-            foreach (var vehicle in vehicleProvider.GetVehicles())
-            {
-                decimal offer = offerProvider.GetOffer();
-                bool shouldSell = vehicleSeller.ShouldSell(vehicle, offer);
+            var offers = offerProvider.Where(o => o < 20000).ToList();
 
-                System.Console.WriteLine($"{vehicle.GetType().Name} sold? {shouldSell}");
-            }
+            System.Console.WriteLine($"Number of offers under 20000: {offers.Count()}");
+
+
         }
     }
 }

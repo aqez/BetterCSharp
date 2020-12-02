@@ -14,15 +14,14 @@ namespace Vehicles.Tests
             _seller = new MarginVehicleSeller(_calculatorMock.Object, 0.10m);
         }
 
-
         [Fact]
         public void ShouldSell_WithTooLowOffer_ReturnsFalse()
         {
             //Arrange
-            _calculatorMock.Setup(c => c.CalculateCost(It.IsAny<IVehicle>())).Returns(600.0m);
+            _calculatorMock.Setup(c => c.CalculateCost(It.IsAny<IVehicle>())).Returns(1000.0m);
 
             //Act
-            bool shouldSell = _seller.ShouldSell(new Tank(), 500.0m);
+            bool shouldSell = _seller.ShouldSell(new Tank(), 800.0m);
 
             //Assert
             Assert.False(shouldSell);
