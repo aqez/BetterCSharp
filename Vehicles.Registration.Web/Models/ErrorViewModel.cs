@@ -1,5 +1,3 @@
-using System;
-
 namespace Vehicles.Registration.Web.Models
 {
     public class ErrorViewModel
