@@ -1,4 +1,4 @@
-namespace Vehicles
+namespace Vehicles.CostCalculators
 {
     public class PrivatePartyVehicleCostCalculator : VehicleCostCalculatorBase
     {

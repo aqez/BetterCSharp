@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Vehicles
+namespace Vehicles.OfferProviders
 {
     public interface IOfferProvider : IEnumerable<decimal>
     {

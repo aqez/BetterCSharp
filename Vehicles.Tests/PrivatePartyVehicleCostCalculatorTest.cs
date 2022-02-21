@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Vehicles.CostCalculators;
 using Xunit;
 
 namespace Vehicles.Tests

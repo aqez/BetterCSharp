@@ -1,4 +1,6 @@
-namespace Vehicles
+using Vehicles.CostCalculators;
+
+namespace Vehicles.Sellers
 {
     public class MarginVehicleSeller : IVehicleSeller
     {

@@ -13,8 +13,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vehicles.DataAccess.Json", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vehicles.NetWorthCalculator.Console", "Vehicles.NetWorthCalculator.Console\Vehicles.NetWorthCalculator.Console.csproj", "{9ED1D651-CBD9-42B8-84EE-5ECFB13899EC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vehicles.Registration.Web", "Vehicles.Registration.Web\Vehicles.Registration.Web.csproj", "{C060FC57-F723-4FB2-AE15-78709C4896D1}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vehicles.Tests", "Vehicles.Tests\Vehicles.Tests.csproj", "{96F41686-5A46-459D-BD9C-FB04C51DD9F6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vehicles.Transfer.Console", "Vehicles.Transfer.Console\Vehicles.Transfer.Console.csproj", "{FB44F2E9-3449-403C-94EA-C5EC78002D27}"
@@ -92,18 +90,6 @@ Global
 		{9ED1D651-CBD9-42B8-84EE-5ECFB13899EC}.Release|x64.Build.0 = Release|Any CPU
 		{9ED1D651-CBD9-42B8-84EE-5ECFB13899EC}.Release|x86.ActiveCfg = Release|Any CPU
 		{9ED1D651-CBD9-42B8-84EE-5ECFB13899EC}.Release|x86.Build.0 = Release|Any CPU
-		{C060FC57-F723-4FB2-AE15-78709C4896D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C060FC57-F723-4FB2-AE15-78709C4896D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C060FC57-F723-4FB2-AE15-78709C4896D1}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{C060FC57-F723-4FB2-AE15-78709C4896D1}.Debug|x64.Build.0 = Debug|Any CPU
-		{C060FC57-F723-4FB2-AE15-78709C4896D1}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{C060FC57-F723-4FB2-AE15-78709C4896D1}.Debug|x86.Build.0 = Debug|Any CPU
-		{C060FC57-F723-4FB2-AE15-78709C4896D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C060FC57-F723-4FB2-AE15-78709C4896D1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C060FC57-F723-4FB2-AE15-78709C4896D1}.Release|x64.ActiveCfg = Release|Any CPU
-		{C060FC57-F723-4FB2-AE15-78709C4896D1}.Release|x64.Build.0 = Release|Any CPU
-		{C060FC57-F723-4FB2-AE15-78709C4896D1}.Release|x86.ActiveCfg = Release|Any CPU
-		{C060FC57-F723-4FB2-AE15-78709C4896D1}.Release|x86.Build.0 = Release|Any CPU
 		{96F41686-5A46-459D-BD9C-FB04C51DD9F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{96F41686-5A46-459D-BD9C-FB04C51DD9F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{96F41686-5A46-459D-BD9C-FB04C51DD9F6}.Debug|x64.ActiveCfg = Debug|Any CPU

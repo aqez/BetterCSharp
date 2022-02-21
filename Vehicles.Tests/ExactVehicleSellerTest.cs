@@ -1,4 +1,6 @@
 using Moq;
+using Vehicles.CostCalculators;
+using Vehicles.Sellers;
 using Xunit;
 
 namespace Vehicles.Tests

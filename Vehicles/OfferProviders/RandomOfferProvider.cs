@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace Vehicles
+namespace Vehicles.OfferProviders
 {
     public class RandomOfferProvider : IOfferProvider
     {

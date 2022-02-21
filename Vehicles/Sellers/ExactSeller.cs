@@ -1,10 +1,7 @@
-namespace Vehicles
-{
-    public interface IVehicleSeller
-    {
-        bool ShouldSell(IVehicle vehicle, decimal offer);
-    }
+using Vehicles.CostCalculators;
 
+namespace Vehicles.Sellers
+{
     public class ExactSeller : IVehicleSeller
     {
         private readonly IVehicleCostCalculator _calculator;
@@ -20,3 +17,4 @@ namespace Vehicles
         }
     }
 }
+
