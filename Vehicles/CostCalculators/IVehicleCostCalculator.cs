@@ -1,8 +1,7 @@
-namespace Vehicles.CostCalculators
+namespace Vehicles.CostCalculators;
+
+public interface IVehicleCostCalculator
 {
-    public interface IVehicleCostCalculator
-    {
-        decimal BaseCost { get; }
-        decimal CalculateCost(IVehicle vehicle);
-    }
+    decimal BaseCost { get; }
+    decimal CalculateCost(IVehicle vehicle);
 }

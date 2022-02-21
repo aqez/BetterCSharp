@@ -1,7 +1,6 @@
-namespace Vehicles.Sellers
+namespace Vehicles.Sellers;
+
+public interface IVehicleSeller
 {
-    public interface IVehicleSeller
-    {
-        bool ShouldSell(IVehicle vehicle, decimal offer);
-    }
+    bool ShouldSell(IVehicle vehicle, decimal offer);
 }

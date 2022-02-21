@@ -2,30 +2,29 @@
 using System.IO;
 using Newtonsoft.Json;
 
-namespace Vehicles.DataAccess.Json
+namespace Vehicles.DataAccess.Json;
+
+public class JsonVehicleProvider : IVehicleProvider
 {
-    public class JsonVehicleProvider : IVehicleProvider
+    private readonly Stream _stream;
+    private readonly StreamReader _reader;
+
+    public JsonVehicleProvider(Stream stream)
     {
-        private readonly Stream _stream;
-        private readonly StreamReader _reader;
+        _stream = stream;
+        _reader = new StreamReader(stream);
+    }
 
-        public JsonVehicleProvider(Stream stream)
-        {
-            _stream = stream;
-            _reader = new StreamReader(stream);
-        }
+    public void Dispose()
+    {
+        _stream.Dispose();
+    }
 
-        public void Dispose()
-        {
-            _stream.Dispose();
-        }
+    public IEnumerable<IVehicle> GetVehicles()
+    {
+        string text = _reader.ReadToEnd();
 
-        public IEnumerable<IVehicle> GetVehicles()
-        {
-            string text = _reader.ReadToEnd();
-
-            var settings = new JsonSerializerSettings() { TypeNameHandling = TypeNameHandling.All };
-            return JsonConvert.DeserializeObject<IVehicle[]>(text, settings);
-        }
+        var settings = new JsonSerializerSettings() { TypeNameHandling = TypeNameHandling.All };
+        return JsonConvert.DeserializeObject<IVehicle[]>(text, settings);
     }
 }

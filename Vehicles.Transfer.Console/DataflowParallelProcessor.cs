@@ -6,73 +6,72 @@ using System.Threading.Tasks.Dataflow;
 using Newtonsoft.Json;
 using Vehicles.DataAccess;
 
-namespace Vehicles.Transfer.Console
+namespace Vehicles.Transfer.Console;
+
+public class DataflowParallelProcessor : ProcessorBase
 {
-    public class DataflowParallelProcessor : ProcessorBase
+    public DataflowParallelProcessor(string directory, string outputFile, IFileSystem fileSystem)
+        : base(directory, outputFile, fileSystem)
     {
-        public DataflowParallelProcessor(string directory, string outputFile, IFileSystem fileSystem)
-            : base(directory, outputFile, fileSystem)
-        {
-        }
+    }
 
-        public override async Task ProcessAsync()
-        {
+    public override async Task ProcessAsync()
+    {
 
-            var settings = new ExecutionDataflowBlockOptions()
+        var settings = new ExecutionDataflowBlockOptions()
+        {
+            MaxDegreeOfParallelism = 10,
+        };
+
+        var listFilesBlock = new TransformManyBlock<string, string>(_fileSystem.GetFileNames, settings);
+        var getVehiclesBlock = new TransformManyBlock<string, IVehicle>(GetVehicles, settings);
+        var transformBlock = new TransformBlock<IVehicle, Truck>(TransformAsync, settings);
+        var doubleBlock = new TransformBlock<Truck, Truck>(DoubleDoorsAsync, settings);
+        var batchBlock = new BatchBlock<Truck>(10);
+        var saveBlock = new ActionBlock<IEnumerable<Truck>>(SaveTrucksAsync, settings);
+
+        DataflowLinkOptions linkOptions = new DataflowLinkOptions() { PropagateCompletion = true };
+
+        listFilesBlock.LinkTo(getVehiclesBlock, linkOptions);
+        getVehiclesBlock.LinkTo(transformBlock, linkOptions);
+        transformBlock.LinkTo(doubleBlock, linkOptions);
+        doubleBlock.LinkTo(batchBlock, linkOptions);
+        batchBlock.LinkTo(saveBlock, linkOptions);
+
+        await listFilesBlock.SendAsync(_directory);
+        listFilesBlock.Complete();
+
+        await saveBlock.Completion;
+    }
+
+    private async Task SaveTrucksAsync(IEnumerable<Truck> trucks)
+    {
+        System.Console.WriteLine($"Saving {trucks.Count()} trucks");
+        await Task.Delay(500);
+
+        lock (this)
+        {
+            using (Stream stream = _fileSystem.GetFileStream(_outputFile, FileMode.OpenOrCreate))
+            using (StreamWriter writer = new StreamWriter(stream))
             {
-                MaxDegreeOfParallelism = 10,
-            };
-
-            var listFilesBlock = new TransformManyBlock<string, string>(_fileSystem.GetFileNames, settings);
-            var getVehiclesBlock = new TransformManyBlock<string, IVehicle>(GetVehicles, settings);
-            var transformBlock = new TransformBlock<IVehicle, Truck>(TransformAsync, settings);
-            var doubleBlock = new TransformBlock<Truck, Truck>(DoubleDoorsAsync, settings);
-            var batchBlock = new BatchBlock<Truck>(10);
-            var saveBlock = new ActionBlock<IEnumerable<Truck>>(SaveTrucksAsync, settings);
-
-            DataflowLinkOptions linkOptions = new DataflowLinkOptions() { PropagateCompletion = true };
-
-            listFilesBlock.LinkTo(getVehiclesBlock, linkOptions);
-            getVehiclesBlock.LinkTo(transformBlock, linkOptions);
-            transformBlock.LinkTo(doubleBlock, linkOptions);
-            doubleBlock.LinkTo(batchBlock, linkOptions);
-            batchBlock.LinkTo(saveBlock, linkOptions);
-
-            await listFilesBlock.SendAsync(_directory);
-            listFilesBlock.Complete();
-
-            await saveBlock.Completion;
-        }
-
-        private async Task SaveTrucksAsync(IEnumerable<Truck> trucks)
-        {
-            System.Console.WriteLine($"Saving {trucks.Count()} trucks");
-            await Task.Delay(500);
-
-            lock (this)
-            {
-                using (Stream stream = _fileSystem.GetFileStream(_outputFile, FileMode.OpenOrCreate))
-                using (StreamWriter writer = new StreamWriter(stream))
+                stream.Seek(0, SeekOrigin.End);
+                foreach (var truck in trucks)
                 {
-                    stream.Seek(0, SeekOrigin.End);
-                    foreach (var truck in trucks)
-                    {
-                        writer.WriteLine(JsonConvert.SerializeObject(truck));
-                    }
+                    writer.WriteLine(JsonConvert.SerializeObject(truck));
                 }
             }
         }
+    }
 
-        private IEnumerable<IVehicle> GetVehicles(string fileName)
+    private IEnumerable<IVehicle> GetVehicles(string fileName)
+    {
+
+        System.Console.WriteLine($"Processing {fileName}...");
+        using (IVehicleProvider repository = GetVehicleProvider(fileName))
         {
-
-            System.Console.WriteLine($"Processing {fileName}...");
-            using (IVehicleProvider repository = GetVehicleProvider(fileName))
+            foreach (var vehicle in repository.GetVehicles())
             {
-                foreach (var vehicle in repository.GetVehicles())
-                {
-                    yield return vehicle;
-                }
+                yield return vehicle;
             }
         }
     }

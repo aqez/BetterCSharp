@@ -1,7 +1,6 @@
-namespace Vehicles
+namespace Vehicles;
+
+public class SUV : VehicleBase
 {
-    public class SUV : VehicleBase
-    {
-        public override decimal CostMultiplier => 1.75m;
-    }
+    public override decimal CostMultiplier => 1.75m;
 }

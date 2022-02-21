@@ -1,9 +1,8 @@
 using System.Threading.Tasks;
 
-namespace Vehicles.Transfer.Console
+namespace Vehicles.Transfer.Console;
+
+public interface IProcessor
 {
-    public interface IProcessor
-    {
-        Task ProcessAsync();
-    }
+    Task ProcessAsync();
 }

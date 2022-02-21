@@ -1,10 +1,9 @@
-namespace Vehicles
+namespace Vehicles;
+
+public interface IVehicle
 {
-    public interface IVehicle
-    {
-        decimal CostMultiplier { get; }
-        int DoorCount { get; set; }
-        int SeatCount { get; set; }
-        int Weight { get; set; }
-    }
+    decimal CostMultiplier { get; }
+    int DoorCount { get; set; }
+    int SeatCount { get; set; }
+    int Weight { get; set; }
 }

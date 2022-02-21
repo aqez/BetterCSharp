@@ -1,7 +1,6 @@
-namespace Vehicles.CostCalculators
+namespace Vehicles.CostCalculators;
+
+public class WholesaleVehicleCostCalculator : VehicleCostCalculatorBase
 {
-    public class WholesaleVehicleCostCalculator : VehicleCostCalculatorBase
-    {
-        public override decimal BaseCost => 5000;
-    }
+    public override decimal BaseCost => 5000;
 }
