@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.IO;
 
-namespace Vehicles.Transfer.Console;
+namespace Vehicles.Transfer.Console.FileSystems;
 
 public class FileSystem : IFileSystem
 {

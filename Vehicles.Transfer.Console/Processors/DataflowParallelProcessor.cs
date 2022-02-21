@@ -5,11 +5,14 @@ using System.Threading.Tasks;
 using System.Threading.Tasks.Dataflow;
 using Newtonsoft.Json;
 using Vehicles.DataAccess;
+using Vehicles.Transfer.Console.FileSystems;
 
-namespace Vehicles.Transfer.Console;
+namespace Vehicles.Transfer.Console.Processors;
 
 public class DataflowParallelProcessor : ProcessorBase
 {
+    private object _outputLock;
+
     public DataflowParallelProcessor(string directory, string outputFile, IFileSystem fileSystem)
         : base(directory, outputFile, fileSystem)
     {
@@ -17,7 +20,6 @@ public class DataflowParallelProcessor : ProcessorBase
 
     public override async Task ProcessAsync()
     {
-
         var settings = new ExecutionDataflowBlockOptions()
         {
             MaxDegreeOfParallelism = 10,
@@ -49,7 +51,7 @@ public class DataflowParallelProcessor : ProcessorBase
         System.Console.WriteLine($"Saving {trucks.Count()} trucks");
         await Task.Delay(500);
 
-        lock (this)
+        lock (_outputLock)
         {
             using (Stream stream = _fileSystem.GetFileStream(_outputFile, FileMode.OpenOrCreate))
             using (StreamWriter writer = new StreamWriter(stream))
@@ -65,7 +67,6 @@ public class DataflowParallelProcessor : ProcessorBase
 
     private IEnumerable<IVehicle> GetVehicles(string fileName)
     {
-
         System.Console.WriteLine($"Processing {fileName}...");
         using (IVehicleProvider repository = GetVehicleProvider(fileName))
         {

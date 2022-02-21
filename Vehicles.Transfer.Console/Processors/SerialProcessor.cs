@@ -1,7 +1,8 @@
 using System.Threading.Tasks;
 using Vehicles.DataAccess;
+using Vehicles.Transfer.Console.FileSystems;
 
-namespace Vehicles.Transfer.Console;
+namespace Vehicles.Transfer.Console.Processors;
 
 public class SerialProcessor : ProcessorBase
 {

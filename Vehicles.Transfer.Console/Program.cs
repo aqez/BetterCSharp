@@ -1,4 +1,6 @@
 ﻿using System.Threading.Tasks;
+using Vehicles.Transfer.Console.FileSystems;
+using Vehicles.Transfer.Console.Processors;
 
 namespace Vehicles.Transfer.Console;
 

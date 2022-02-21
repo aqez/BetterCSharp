@@ -5,8 +5,9 @@ using Newtonsoft.Json;
 using Vehicles.DataAccess;
 using Vehicles.DataAccess.Edi;
 using Vehicles.DataAccess.Json;
+using Vehicles.Transfer.Console.FileSystems;
 
-namespace Vehicles.Transfer.Console;
+namespace Vehicles.Transfer.Console.Processors;
 
 public abstract class ProcessorBase : IProcessor
 {
