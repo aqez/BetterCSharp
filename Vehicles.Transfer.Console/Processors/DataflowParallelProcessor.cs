@@ -11,7 +11,7 @@ namespace Vehicles.Transfer.Console.Processors;
 
 public class DataflowParallelProcessor : ProcessorBase
 {
-    private object _outputLock;
+    private object _outputLock = new object();
 
     public DataflowParallelProcessor(string directory, string outputFile, IFileSystem fileSystem)
         : base(directory, outputFile, fileSystem)
